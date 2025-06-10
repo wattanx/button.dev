@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: theme("colors.gray.50");
+  --text-primary: theme("colors.gray.900");
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: theme("colors.zinc.800");
+    --text-primary: theme("colors.gray.200");
+  }
+}
