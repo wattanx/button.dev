@@ -12,4 +12,14 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  app: {
+    head: {
+      script: [
+        {
+          innerHTML: `!function(){const e=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light",t=localStorage.getItem("button-dev-color-mode"),o=null==t?e:t;window.document.documentElement.dataset.theme=o}();`,
+          type: "text/javascript",
+        },
+      ],
+    },
+  },
 });

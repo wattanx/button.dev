@@ -4,10 +4,15 @@ import { computed } from "vue";
 
 const colorMode = useColorMode();
 
-const isDark = computed(() => colorMode.value.value === "dark");
+const isDark = computed(() => colorMode.resolvedTheme.value === "dark");
 
 const toggleTheme = () => {
-  colorMode.preference.value = isDark.value ? "light" : "dark";
+  const current = colorMode.preference.value;
+  if (current === "light") {
+    colorMode.preference.value = "dark";
+  } else {
+    colorMode.preference.value = "light";
+  }
 };
 </script>
 
