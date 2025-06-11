@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Slider from "~/components/Slider.vue";
 import FormField from "~/components/FormField.vue";
+import ThemeToggle from "~/components/ThemeToggle.vue";
 import { ref } from "vue";
 
 const buttonStyle = ref({
@@ -20,16 +20,19 @@ const buttonStyle = ref({
 </script>
 
 <template>
-  <div class="min-h-screen p-6">
+  <div
+    class="min-h-screen p-6 bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors"
+  >
     <div class="max-w-7xl mx-auto">
-      <header>
-        <div>button.dev</div>
+      <header class="flex items-center justify-between mb-8">
+        <div class="text-2xl font-bold">button.dev</div>
+        <ThemeToggle />
       </header>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- preview -->
         <div
-          class="rounded-lg border text-card-foreground shadow-sm h-fit overflow-hidden"
+          class="rounded-lg border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm h-fit overflow-hidden transition-colors"
         >
           <div class="p-0">
             <div
@@ -43,13 +46,20 @@ const buttonStyle = ref({
                       '--button-pb': buttonStyle.pb + 'px',
                       '--button-pr': buttonStyle.pr + 'px',
                       '--button-pl': buttonStyle.pl + 'px',
-                      '--button-width': buttonStyle.width === 'auto' ? 'auto' : buttonStyle.width + 'px',
-                      '--button-height': buttonStyle.height === 'auto' ? 'auto' : buttonStyle.height + 'px',
+                      '--button-width':
+                        buttonStyle.width === 'auto'
+                          ? 'auto'
+                          : buttonStyle.width + 'px',
+                      '--button-height':
+                        buttonStyle.height === 'auto'
+                          ? 'auto'
+                          : buttonStyle.height + 'px',
                       '--button-radius': buttonStyle.radius + 'px',
                       '--button-color': buttonStyle.color,
                       '--button-bg-color': buttonStyle.bgColor,
                       '--button-active-scale': buttonStyle.activeScale,
-                      '--button-transition-duration': buttonStyle.transitionDuration + 'ms',
+                      '--button-transition-duration':
+                        buttonStyle.transitionDuration + 'ms',
                     }"
                     class="relative overflow-hidden shadow-lg hover:shadow-xl active:scale-(--button-active-scale) transition-all duration-(--button-transition-duration) pt-(--button-pt) pb-(--button-pb) pr-(--button-pr) pl-(--button-pl) w-(--button-width) h-(--button-height) rounded-(--button-radius) color-(--button-color) bg-(--button-bg-color)"
                   >
@@ -67,100 +77,131 @@ const buttonStyle = ref({
 
         <!-- editor -->
         <div
-          class="rounded-lg border text-card-foreground shadow-sm h-fit overflow-hidden space-y-6"
+          class="rounded-lg border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm h-fit overflow-hidden space-y-6 transition-colors"
         >
           <div class="p-6">
             <div class="space-y-4">
-              <FormField
-                label="ボタンテキスト"
-                id="buttonText"
-                v-model="buttonStyle.text"
-              />
+              <div class="space-y-2 flex flex-col">
+                <label for="buttonText" class="text-gray-900 dark:text-gray-100"
+                  >ボタンテキスト</label
+                >
+                <FormField id="buttonText" v-model="buttonStyle.text" />
+              </div>
 
               <div class="grid grid-cols-2 gap-4">
-                <FormField
-                  label="Width (px)"
-                  id="width"
-                  v-model="buttonStyle.width"
-                  placeholder="auto or number"
-                />
-                <FormField
-                  label="Height (px)"
-                  id="height"
-                  v-model="buttonStyle.height"
-                  placeholder="auto or number"
-                />
+                <div class="space-y-2 flex flex-col">
+                  <label for="width" class="text-gray-900 dark:text-gray-100"
+                    >Width (px)</label
+                  >
+                  <FormField
+                    id="width"
+                    v-model="buttonStyle.width"
+                    placeholder="auto or number"
+                  />
+                </div>
+                <div class="space-y-2 flex flex-col">
+                  <label for="height" class="text-gray-900 dark:text-gray-100"
+                    >Height (px)</label
+                  >
+                  <FormField
+                    id="height"
+                    v-model="buttonStyle.height"
+                    placeholder="auto or number"
+                  />
+                </div>
               </div>
 
               <div class="space-y-2">
-                <label>Padding (px)</label>
+                <label class="text-gray-900 dark:text-gray-100">Padding (px)</label>
                 <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-2 flex flex-col">
+                    <label for="pt" class="text-sm text-gray-600 dark:text-gray-400"
+                      >Top</label
+                    >
+                    <FormField id="pt" v-model="buttonStyle.pt" type="number" />
+                  </div>
+                  <div class="space-y-2 flex flex-col">
+                    <label for="pb" class="text-sm text-gray-600 dark:text-gray-400"
+                      >Bottom</label
+                    >
+                    <FormField id="pb" v-model="buttonStyle.pb" type="number" />
+                  </div>
+                  <div class="space-y-2 flex flex-col">
+                    <label for="pl" class="text-sm text-gray-600 dark:text-gray-400"
+                      >Left</label
+                    >
+                    <FormField id="pl" v-model="buttonStyle.pl" type="number" />
+                  </div>
+                  <div class="space-y-2 flex flex-col">
+                    <label for="pr" class="text-sm text-gray-600 dark:text-gray-400"
+                      >Right</label
+                    >
+                    <FormField id="pr" v-model="buttonStyle.pr" type="number" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2 flex flex-col">
+                  <label for="color" class="text-gray-900 dark:text-gray-100"
+                    >Text Color</label
+                  >
                   <FormField
-                    label="Top"
-                    id="pt"
-                    v-model="buttonStyle.pt"
-                    type="number"
+                    id="color"
+                    v-model="buttonStyle.color"
+                    type="color"
                   />
+                </div>
+                <div class="space-y-2 flex flex-col">
+                  <label for="bgColor" class="text-gray-900 dark:text-gray-100"
+                    >Background Color</label
+                  >
                   <FormField
-                    label="Bottom"
-                    id="pb"
-                    v-model="buttonStyle.pb"
-                    type="number"
-                  />
-                  <FormField
-                    label="Left"
-                    id="pl"
-                    v-model="buttonStyle.pl"
-                    type="number"
-                  />
-                  <FormField
-                    label="Right"
-                    id="pr"
-                    v-model="buttonStyle.pr"
-                    type="number"
+                    id="bgColor"
+                    v-model="buttonStyle.bgColor"
+                    type="color"
                   />
                 </div>
               </div>
 
               <div class="grid grid-cols-2 gap-4">
-                <FormField
-                  label="Text Color"
-                  id="color"
-                  v-model="buttonStyle.color"
-                  type="color"
-                />
-                <FormField
-                  label="Background Color"
-                  id="bgColor"
-                  v-model="buttonStyle.bgColor"
-                  type="color"
-                />
+                <div class="space-y-2 flex flex-col">
+                  <label for="radius" class="text-gray-900 dark:text-gray-100"
+                    >Border Radius (px)</label
+                  >
+                  <FormField
+                    id="radius"
+                    v-model="buttonStyle.radius"
+                    type="number"
+                  />
+                </div>
+                <div class="space-y-2 flex flex-col">
+                  <label for="activeScale" class="text-gray-900 dark:text-gray-100"
+                    >Active Scale</label
+                  >
+                  <FormField
+                    id="activeScale"
+                    v-model="buttonStyle.activeScale"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="1"
+                  />
+                </div>
               </div>
 
-              <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-2 flex flex-col">
+                <label
+                  for="transitionDuration"
+                  class="text-gray-900 dark:text-gray-100"
+                  >Transition Duration (ms)</label
+                >
                 <FormField
-                  label="Border Radius (px)"
-                  id="radius"
-                  v-model="buttonStyle.radius"
+                  id="transitionDuration"
+                  v-model="buttonStyle.transitionDuration"
                   type="number"
-                />
-                <FormField
-                  label="Active Scale"
-                  id="activeScale"
-                  v-model="buttonStyle.activeScale"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  max="1"
                 />
               </div>
-
-              <FormField
-                label="Transition Duration (ms)"
-                id="transitionDuration"
-                v-model="buttonStyle.transitionDuration"
-                type="number"
-              />
             </div>
           </div>
         </div>
