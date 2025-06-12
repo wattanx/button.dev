@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import FormField from "~/components/FormField.vue";
+import SelectField from "~/components/SelectField.vue";
 import ThemeToggle from "~/components/ThemeToggle.vue";
 import { ref } from "vue";
 
+interface ButtonType {
+  type: "button" | "submit" | "reset";
+}
+
 const buttonStyle = ref({
   text: "button",
+  type: "button" as ButtonType["type"],
   width: "200",
   height: "auto",
   pt: "12",
@@ -17,6 +23,12 @@ const buttonStyle = ref({
   activeScale: "0.95",
   transitionDuration: "300",
 });
+
+const buttonTypeOptions = [
+  { value: "button", label: "button" },
+  { value: "submit", label: "submit" },
+  { value: "reset", label: "reset" },
+];
 </script>
 
 <template>
@@ -41,6 +53,7 @@ const buttonStyle = ref({
               <div class="relative z-10 p-8 rounded-2xl">
                 <div class="flex flex-col items-center space-y-4">
                   <button
+                    :type="buttonStyle.type"
                     :style="{
                       '--button-pt': buttonStyle.pt + 'px',
                       '--button-pb': buttonStyle.pb + 'px',
@@ -200,6 +213,17 @@ const buttonStyle = ref({
                   id="transitionDuration"
                   v-model="buttonStyle.transitionDuration"
                   type="number"
+                />
+              </div>
+
+              <div class="space-y-2 flex flex-col">
+                <label for="buttonType" class="text-gray-900 dark:text-gray-100"
+                  >type attribute</label
+                >
+                <SelectField
+                  id="buttonType"
+                  v-model="buttonStyle.type"
+                  :options="buttonTypeOptions"
                 />
               </div>
             </div>
