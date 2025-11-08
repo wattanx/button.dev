@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   future: {
-    compatibilityVersion: 4,
+    compatibilityVersion: 5,
   },
   app: {
     head: {
